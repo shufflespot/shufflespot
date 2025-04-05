@@ -377,11 +377,45 @@
             /*for (let i = 0; i < names.length; i += 2) {
                 pairs.push([names[i], names[i + 1]]);
             }*/
-            pairs.push(['alisha', 'rushi']);
-            pairs.push(['yagna', 'rahi']);
-            pairs.push(['payal', 'sneh']);
-            pairs.push(['richa', 'yash']);
-            pairs.push(['kaptan', 'aneri']);
+
+            let knownNames = ["YAGNA", "SNEH", "YASH", "RUSHI", "KAPTAN", "AKSHAT", "DEEP", "VIDHI", "PAYAL",
+             "CHARMIL", "KUNJAL", "JHANVI", "SONI", "DHUMKESH", "HET", "VATS", "MANJU",
+             "HINAL", "RAHI", "AINA", "SAKSHI", "NIKKI", "ANERI", "ALISHA", "CHANDNI", "MANASVI", "RICHA", "POOJA", "VACHA", "RITU", "ARJUN"];
+
+            let randomNames = [];
+            for (let i = 0; i < names.length; i++) {
+                let name = names[i] + "";
+                name = name.toUpperCase();
+                let knownName = false;
+
+                for (let j = 0; j < knownNames.length; j++) {
+                    knownName = (name === knownNames[j].toUpperCase());
+                    if (knownName) {
+                    	j = knownNames.length;
+                    }
+                }
+                
+                if (!knownName) {
+                    randomNames.push(name.toLowerCase())
+                }
+            }
+
+            pairs = generateRandomPairs2(randomNames);
+
+            pairs.push(['yagna', 'hinal']);
+            pairs.push(['sakshi', 'rushi']);
+            pairs.push(['charmil', 'aneri']);
+            pairs.push(['akshat', 'nikki']);
+            pairs.push(['sneh', 'payal']);
+            pairs.push(['richa', 'vats']);
+            pairs.push(['aryan', 'vacha']);
+            pairs.push(['rahi', 'yash']);
+            pairs.push(['kunjal', 'alisha']);
+            pairs.push(['het', 'manasvi']);
+            pairs.push(['dhumkesh', 'chandni']);
+            pairs.push(['vidhi', 'deep']);
+            pairs.push(['kaptan', 'aina']);
+            pairs.push(['arjun', 'ritu']);
 
             document.getElementById("namesPage").style.display = "none";
             document.getElementById("loading").style.display = "flex";
@@ -393,6 +427,30 @@
                 document.getElementById("loading").style.display = "none";
                 document.getElementById("resultPage").style.display = "flex";
             }, 2000);
+        }
+
+        function generateRandomPairs2(names) {
+            // Clone the array to avoid mutating the original
+            const shuffled = [...names];
+
+             // Shuffle the array using Fisher-Yates algorithm
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+             }
+
+            // If odd number of names, add "NOPAIR"
+            if (shuffled.length % 2 !== 0) {
+              shuffled.push("NOPAIR");
+            }
+
+            // Create the pairs
+            const pairs = [];
+            for (let i = 0; i < shuffled.length; i += 2) {
+                pairs.push([shuffled[i], shuffled[i + 1]]);
+            }       
+
+            return pairs;
         }
     </script>
 </body>
